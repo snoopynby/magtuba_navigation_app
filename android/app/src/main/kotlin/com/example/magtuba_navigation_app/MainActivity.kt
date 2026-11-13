@@ -1,0 +1,5 @@
+package com.example.magtuba_navigation_app
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
