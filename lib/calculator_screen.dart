@@ -63,7 +63,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
  
   setState(() {
-    result = answer.toString();
+     result = answer.toStringAsFixed(1);
     operationLabel = '$first $operation $second';
   });
 }

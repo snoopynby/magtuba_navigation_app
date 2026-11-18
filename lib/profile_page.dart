@@ -1,16 +1,31 @@
-
 import 'package:flutter/material.dart';
 import 'demo_auth.dart';
 import 'login_screen.dart';
-
+ 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
+  final String username;
+ 
+  const ProfilePage({
+    super.key,
+    required this.username,
+  });
+ 
+  void logout(BuildContext context) {
+    DemoAuth.logout();
+ 
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Profile'),
+        title: const Text('Student Profile'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(24),
@@ -25,18 +40,26 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
+ 
           const Text(
-            'Novy Magtuba',
+            'Novy Nicole Magtuba',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(height: 8),
+ 
+          Text(
+            'Logged in as: $username',
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 24),
-          Card(
+ 
+          const Card(
             child: Column(
-              children: const [
+              children: [
                 ListTile(
                   leading: Icon(Icons.badge),
                   title: Text('Student ID'),
@@ -45,41 +68,22 @@ class ProfilePage extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.school),
                   title: Text('Course and Section'),
-                  subtitle: Text('BSCS - CCE106/L - 3450'),
+                  subtitle: Text('CCE106 - 3450'),
                 ),
                 ListTile(
                   leading: Icon(Icons.email),
                   title: Text('Email'),
-                  subtitle: Text('novymagtuba07@gmail.com'),
+                  subtitle: Text('n.magtuba.551499@umindanao.edu.ph'),
                 ),
               ],
             ),
           ),
-
-          const SizedBox(height: 32),
-
-          // Logout Button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                DemoAuth.logout();
-
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
-                  (route) => false,
-                );
-              },
-              icon: const Icon(Icons.logout),
-              label: const Text('Logout'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 21, 10, 96),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-              ),
-            ),
+          const SizedBox(height: 24),
+ 
+          ElevatedButton.icon(
+            onPressed: () => logout(context),
+            icon: const Icon(Icons.logout),
+            label: const Text('Logout'),
           ),
         ],
       ),

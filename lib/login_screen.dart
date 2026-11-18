@@ -16,12 +16,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   bool hidePassword = true;
  
+ //Changed for act7
   void login() {
+  if (!formKey.currentState!.validate()) {
+    return;
+  }
+ 
   final isValid = DemoAuth.login(
     usernameController.text.trim(),
     passwordController.text,
   );
-
+ 
   if (isValid) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
@@ -31,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Invalid username or password'),
+        content: Text('Invalid username or password.'),
       ),
     );
   }
